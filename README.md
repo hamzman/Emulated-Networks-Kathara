@@ -1,5 +1,5 @@
 # Emulated-Networks-Kathara
-This is a repo that contains an emulated lab of the different types of technologies and routing protocols used in Internet Networking.
+This is a project that contains an emulated lab of the different types of technologies and routing protocols used in Internet Networking.
 
 Each folder contains a specific protocol, appropriately named.
 
