@@ -1,0 +1,17 @@
+#!/bin/sh
+
+ip address add 10.1.0.10/18 dev eth0
+
+#Add a static route to reach other networks
+ip route add default via 10.1.0.1 dev eth0
+
+#Wireguard Commands
+ip link add dev wg0 type wireguard
+ip address add dev wg0 192.168.2.2/24
+wg setconf wg0 pc1.conf
+ip link set up dev wg0
+
+ip route add 10.4.0.0/16 via 192.168.2.1 dev wg0
+ip route add 10.5.0.0/16 via 192.168.2.3 dev wg0
+
+
