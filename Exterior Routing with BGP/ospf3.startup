@@ -1,0 +1,7 @@
+ip link set eth0 up
+ip link set eth1 up
+
+ip addr add 10.4.0.13/18 dev eth0
+ip addr add 10.2.0.13/16 dev eth1
+
+frrinit.sh start
