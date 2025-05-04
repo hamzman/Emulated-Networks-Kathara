@@ -1,0 +1,28 @@
+http:
+    routers:
+        allbackendrouter:
+            rule: "Host(`gik.de`)"
+            service: gikbackend
+
+    services:
+        gikbackend:
+            weighted:
+                services:
+                    - name: web_sheldon
+                      weight: 6
+                    - name: web_leonard
+                      weight: 3
+                    - name: web_howard
+                      weight: 1
+        web_sheldon:
+            loadBalancer:
+                servers:
+                    - url: "http://10.4.0.100:80"
+        web_leonard:
+            loadBalancer:
+                servers:
+                    - url: "http://10.4.0.101:80"
+        web_howard:
+            loadBalancer:
+                servers:
+                    - url: "http://10.4.0.102:80"

@@ -1,0 +1,25 @@
+#!/bin/vbash
+source /opt/vyatta/etc/functions/script-template
+
+# TODO: based on the r1/init.vbash file, add necessary VyOS configuration commands
+# to let r2 operate properly.
+
+configure
+
+set interfaces ethernet eth0 address 10.2.0.2/22
+set interfaces ethernet eth1 address 10.4.0.2/16
+set interfaces ethernet eth2 address 10.10.10.2/24
+set protocols static route 10.1.0.0/18 next-hop 10.2.0.1
+set protocols static route 10.3.0.0/20 next-hop 10.2.0.1
+set protocols static route 8.0.0.0/8 next-hop 10.2.0.1
+
+#NAT Rules
+set nat source rule 100 description 'Setting Source NAT for Network D'
+set nat source rule 100 source address 10.4.0.0/16
+set nat source rule 100 outbound-interface eth0
+set nat source rule 100 translation address masquerade
+
+
+# always commit before exiting
+commit
+exit
