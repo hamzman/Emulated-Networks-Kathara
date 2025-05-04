@@ -1,0 +1,30 @@
+#!/bin/sh
+
+ip address add 10.3.0.3/20 dev eth0
+ip address add 10.5.0.3/25 dev eth1
+ip address add 9.0.0.3/8 dev eth2
+ip route add 9.0.0.0/8 dev eth2
+
+ip route add default via 10.3.0.1 dev eth0
+
+#Drop all packets
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT DROP
+
+#Allow unlimited traffic on loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+#Forward DNS Network packets
+iptables -A INPUT -s 9.0.0.0/8 -j ACCEPT
+iptables -A OUTPUT -d 9.0.0.0/8 -j ACCEPT
+iptables -A FORWARD -s 9.0.0.0/8 -j ACCEPT
+iptables -A FORWARD -d 9.0.0.0/8 -j ACCEPT
+
+#Allow tcp port 80 connections
+iptables -A INPUT -p tcp --dport 80 -s 0.0.0.0/0 -d 10.5.0.0/25 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 80 -s 10.5.0.0/25 -d 0.0.0.0/0 -m state --state ESTABLISHED -j ACCEPT
+
+iptables -A FORWARD -p tcp --dport 80 -s 0.0.0.0/0 -d 10.5.0.0/25 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -s 10.5.0.0/25 -d 0.0.0.0/0 -m state --state ESTABLISHED -j ACCEPT
