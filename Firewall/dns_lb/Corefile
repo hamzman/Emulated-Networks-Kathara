@@ -1,0 +1,7 @@
+
+org:53 {
+	root /zones
+	file db.org
+	loadbalance round_robin
+	log
+}

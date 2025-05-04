@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ip address add 10.1.0.10/18 dev eth0
+
+#Add a static route to reach other networks
+ip route add default via 10.1.0.1 dev eth0
+
+#Set DNS server as dns_root
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
