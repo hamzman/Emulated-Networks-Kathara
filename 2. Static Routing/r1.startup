@@ -1,0 +1,8 @@
+#!/bin/sh
+touch /test.txt
+for i in {1..15}; do echo "Count: $i" >> /test.txt && sleep 1; done
+FILE=/r1init.vbash
+if [[ -f "$FILE" ]]; then
+  /bin/su -c "/bin/vbash $FILE" - vyos
+  rm $FILE
+fi

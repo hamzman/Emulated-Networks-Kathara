@@ -1,0 +1,6 @@
+#!/bin/sh
+
+udhcpc
+
+#Add static route to reach other networks
+ip route add default via 10.1.0.1 dev eth0

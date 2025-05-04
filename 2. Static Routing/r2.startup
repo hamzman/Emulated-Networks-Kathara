@@ -1,0 +1,14 @@
+#!/bin/sh
+touch /test2.txt
+for i in {1..15}; do echo "Count: $i" >> /test2.txt && sleep 1; done
+FILE=/r2init.vbash
+if [[ -f "$FILE" ]]; then
+  /bin/su -c "/bin/vbash $FILE" - vyos
+  rm $FILE
+fi
+# ip route add 10.10.0.0/24 via 30.30.0.1 dev eth0
+# ip route add 20.20.0.0/20 via 30.30.0.1 dev eth0
+# ip route add 50.50.0.0/25 via 30.30.0.1 dev eth0
+# route add -net 10.10.0.0 netmask 255.255.255.0 gw 30.30.0.1 dev eth0
+# route add -net 20.20.0.0 netmask 255.255.255.0 gw 30.30.0.1 dev eth0
+# route add -net 50.50.0.0 netmask 255.255.255.0 gw 30.30.0.1 dev eth0
