@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ip address add 9.9.9.9/8 dev eth0
+ip route add default via 9.0.0.3 dev eth0
+
+coredns -dns.port=53 -conf /Corefile

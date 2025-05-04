@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ip address add 10.5.0.102/25 dev eth0
+
+#Add static route to reach other networks
+ip route add default via 10.5.0.3 dev eth0

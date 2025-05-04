@@ -1,0 +1,12 @@
+#r1
+set protocols static route 10.4.0.0/16 next-hop 10.2.0.2
+set protocols static route 10.5.0.0/25 next-hop 10.3.0.3
+set protocol static route 9.0.0.0/8 next-hop 10.3.0.3
+
+#r2
+set protocols static route 10.1.0.0/18 next-hop 10.2.0.1
+set protocols static route 10.3.0.0/20 next-hop 10.2.0.1
+
+#r3
+ip route add default via 10.3.0.1 dev eth0
+ip route add 9.0.0.0/8 dev eth2

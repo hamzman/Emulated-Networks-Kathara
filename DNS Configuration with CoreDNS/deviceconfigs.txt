@@ -1,0 +1,50 @@
+#pc1
+ip address add 10.1.0.10/18 dev eth0
+ip route add default via 10.1.0.1 dev eth0
+
+#pc2
+ip address add 10.1.0.11/18 dev eth0
+ip route add default via 10.1.0.1 dev eth0
+
+#r1
+configure
+set interfaces ethernet eth0 address 10.1.0.1/18
+set interfaces ethernet eth1 address 10.2.0.1/22
+set interfaces ethernet eth2 address 10.3.0.1/20
+set interfaces ethernet eth3 address 8.0.0.1/8
+
+#r2
+configure
+set interfaces ethernet eth0 address 10.2.0.2/22
+set interfaces ethernet eth1 address 10.4.0.2/16
+set protocols static route 10.1.0.0/18 next-hop 10.2.0.1
+set protocols static route 10.3.0.0/20 next-hop 10.2.0.1
+
+#r3
+ip address add 10.3.0.3/20 dev eth0
+ip address add 10.5.0.3/25 dev eth1
+ip address add 9.0.0.3/8 dev eth2
+
+#dns_lb
+ip address add 9.9.9.9/8 dev eth0
+ip route add default via 9.0.0.3 dev eth0
+
+#dns_root
+ip address add 8.8.8.8/8 dev eth0
+ip route add default via 8.0.0.1 dev eth0
+
+#web1
+ip address add 10.4.0.100/16 dev eth0
+ip route add default via 10.4.0.2 dev eth0
+
+#web_amy
+ip address add 10.5.0.102/25 dev eth0
+ip route add default via 10.5.0.3 dev eth0
+
+#web_bernadette
+ip address add 10.5.0.101/25 dev eth0
+ip route add default via 10.5.0.3 dev eth0
+
+#web_penny
+ip address add 10.5.0.100/25 dev eth0
+ip route add default via 10.5.0.3 dev eth0

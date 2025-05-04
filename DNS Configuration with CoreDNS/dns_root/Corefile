@@ -1,0 +1,12 @@
+
+.:53 {
+	whoami
+	forward org 9.9.9.9
+	log
+}
+
+de {
+	root /zones
+	file db.de
+	log
+}

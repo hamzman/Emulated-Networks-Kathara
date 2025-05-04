@@ -1,0 +1,9 @@
+entryPoints:
+    unsecure:
+        address: :80
+
+providers:
+   # Enable the file provider to define routers / middlewares / services in file
+   file:
+      filename: gik_de.yaml
+      watch: true

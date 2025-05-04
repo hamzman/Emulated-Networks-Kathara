@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ip address add 10.3.0.3/20 dev eth0
+ip address add 10.5.0.3/25 dev eth1
+ip address add 9.0.0.3/8 dev eth2
+
+ip route add default via 10.3.0.1 dev eth0
+ip route add 9.0.0.0/8 dev eth2
